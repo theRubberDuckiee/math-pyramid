@@ -1,13 +1,102 @@
-body {
+/* Global Reset and Base Styles */
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  /* Dark stone/concrete textured background */
+  background-color: #2a2a2a;
+  background-image: 
+    /* Primary concrete texture pattern */
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 115, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(100, 98, 95, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(90, 88, 85, 0.2) 0%, transparent 50%),
+    /* Stone grain and weathering effects */
+    linear-gradient(45deg, rgba(70, 68, 65, 0.1) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(70, 68, 65, 0.1) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(60, 58, 55, 0.1) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(60, 58, 55, 0.1) 75%),
+    /* Subtle noise and imperfections */
+    radial-gradient(circle at 60% 70%, rgba(85, 83, 80, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 30% 10%, rgba(75, 73, 70, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 50%, rgba(95, 93, 90, 0.1) 0%, transparent 30%),
+    /* Base dark concrete color with subtle variations */
+    linear-gradient(180deg, #2d2d2d 0%, #252525 50%, #1f1f1f 100%);
+  background-size:
+    250px 250px,
+    180px 180px,
+    320px 320px,
+    40px 40px,
+    40px 40px,
+    40px 40px,
+    40px 40px,
+    150px 150px,
+    200px 200px,
+    130px 130px,
+    100% 100%;
+  background-position:
+    0 0,
+    50px 50px,
+    100px 100px,
+    0 0,
+    20px 20px,
+    0 0,
+    20px 20px,
+    30px 80px,
+    120px 20px,
+    200px 150px,
+    0 0;
+  background-attachment: fixed;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }

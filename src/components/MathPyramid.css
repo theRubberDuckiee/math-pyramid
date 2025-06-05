@@ -1,0 +1,392 @@
+.math-pyramid {
+  width: 100vw;
+  height: 100vh;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(80, 80, 80, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(60, 60, 60, 0.3) 0%, transparent 50%),
+    linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #0d0d0d 100%);
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Add texture overlay */
+.math-pyramid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, #333 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, #222 1px, transparent 1px);
+  background-size: 50px 50px, 30px 30px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Add crack texture */
+.math-pyramid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.02) 41%, rgba(255, 255, 255, 0.02) 42%, transparent 43%),
+    linear-gradient(-45deg, transparent 40%, rgba(255, 255, 255, 0.02) 41%, rgba(255, 255, 255, 0.02) 42%, transparent 43%);
+  background-size: 200px 200px, 150px 150px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.game-header {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  z-index: 10;
+  position: relative;
+}
+
+.prison-puzzle-banner {
+  background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
+  color: #2d2d2d;
+  padding: 0.4rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  display: inline-block;
+  box-shadow: 
+    0 4px 12px rgba(212, 175, 55, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid #b8941f;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.prison-puzzle-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
+.math-pyramid-title {
+  color: #ffd700;
+  font-size: 3.2rem;
+  font-weight: bold;
+  text-shadow: 
+    3px 3px 6px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.5),
+    0 0 40px rgba(255, 215, 0, 0.3);
+  letter-spacing: 4px;
+  background: linear-gradient(
+    45deg,
+    #d4af37 0%,
+    #ffd700 25%,
+    #ffed4e 50%,
+    #ffd700 75%,
+    #d4af37 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShine 4s ease-in-out infinite;
+  font-family: 'serif';
+}
+
+.game-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  z-index: 10;
+  position: relative;
+  max-width: 1400px;
+  padding: 2rem;
+}
+
+.pyramid-section {
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.15), rgba(255, 215, 0, 0.08));
+  border: 4px solid #d4af37;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 
+    0 0 40px rgba(212, 175, 55, 0.4),
+    inset 0 2px 15px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+/* Add golden frame enhancement */
+.pyramid-section::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ffd700, #d4af37, #ffd700, #d4af37);
+  border-radius: 22px;
+  z-index: -1;
+  background-size: 200% 200%;
+  animation: borderShine 3s ease-in-out infinite;
+}
+
+@keyframes borderShine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.pyramid-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: -5px;
+}
+
+.pyramid-row {
+  display: flex;
+  gap: -5px;
+  align-items: center;
+}
+
+.pyramid-block {
+  width: 90px;
+  height: 80px;
+  background: #f8f8f8;
+  border: 2px solid #333;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(50% 0%, 0% 75%, 100% 75%);
+  transform-style: preserve-3d;
+  user-select: none;
+  margin: 2px;
+}
+
+.pyramid-block:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pyramid-block.selected {
+  background: #e0e0e0;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+}
+
+.block-label {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #000;
+  background: #d4af37;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 16px;
+  text-align: center;
+  border: 1px solid #b8941f;
+}
+
+.block-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  padding: 0 8px;
+}
+
+.operation {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.number {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #000;
+  line-height: 1;
+}
+
+.target-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.target-label {
+  background: #d4af37;
+  color: #2d2d2d;
+  padding: 0.4rem 1.5rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  box-shadow: 
+    0 2px 8px rgba(212, 175, 55, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  border: 1px solid #b8941f;
+  text-transform: uppercase;
+}
+
+.target-value {
+  width: 120px;
+  height: 120px;
+  background: #d4af37;
+  border: 3px solid #b8941f;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #2d2d2d;
+  box-shadow: 
+    0 6px 20px rgba(212, 175, 55, 0.5),
+    inset 0 2px 10px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.3),
+    0 0 5px rgba(255, 255, 255, 0.3);
+  font-family: 'Arial', sans-serif;
+}
+
+.current-value {
+  color: #d4af37;
+  font-size: 1rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.win-message {
+  color: #00ff00;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.new-game-btn {
+  background: linear-gradient(145deg, #d4af37, #b8941f);
+  color: #2d2d2d;
+  border: 2px solid #ffd700;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.new-game-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+  background: linear-gradient(145deg, #ffd700, #d4af37);
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.3);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+@keyframes goldShine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .game-container {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .pyramid-section {
+    padding: 2rem;
+  }
+  
+  .pyramid-block {
+    width: 70px;
+    height: 60px;
+  }
+  
+  .operation {
+    font-size: 0.9rem;
+  }
+  
+  .number {
+    font-size: 0.9rem;
+  }
+  
+  .target-value {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+  
+  .math-pyramid-title {
+    font-size: 2rem;
+  }
+}
