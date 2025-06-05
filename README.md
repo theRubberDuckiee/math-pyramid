@@ -1,70 +1,178 @@
-# Getting Started with Create React App
+# Math Pyramid Prison Puzzle 🔺
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A captivating prison-themed mathematical pyramid puzzle game built with React. Challenge your mathematical skills by manipulating pyramid blocks with various operations to reach target values.
 
-## Available Scripts
+![Math Pyramid Game](https://img.shields.io/badge/React-18.2.0-blue?logo=react) ![License](https://img.shields.io/badge/License-MIT-green) ![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
 
-In the project directory, you can run:
+## 🎮 Game Overview
 
-### `npm start`
+The Math Pyramid Prison Puzzle is an engaging mathematical game where players interact with triangular pyramid blocks arranged in a pyramid formation. Each block contains mathematical operations and numbers. The goal is to strategically select blocks to achieve a specific target value.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Key Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Prison Theme**: Dark stone/concrete textured background with atmospheric lighting
+- **Golden UI Elements**: Metallic golden borders, titles, and interactive elements
+- **Responsive Design**: Optimized for both desktop and mobile devices
+- **Interactive Pyramid**: Triangular blocks with hover effects and selection feedback
+- **Mathematical Operations**: Addition, subtraction, multiplication, and division
+- **Dynamic Gameplay**: Randomly generated puzzles with varying difficulty
+- **Win Detection**: Automatic celebration when target is reached
 
-### `npm test`
+## 🚀 Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Node.js (version 14 or higher)
+- npm or yarn package manager
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
+```bash
+git clone https://github.com/theRubberDuckiee/math-pyramid.git
+cd math-pyramid
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install dependencies:
+```bash
+npm install
+```
 
-### `npm run eject`
+3. Start the development server:
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Open your browser and navigate to `http://localhost:3000`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎯 How to Play
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Objective**: Reach the target value displayed on the right side of the screen
+2. **Interaction**: Click on pyramid blocks to select them
+3. **Mathematics**: Each block contains an operation and number that affects your current total
+4. **Strategy**: Plan your moves carefully to reach the exact target value
+5. **Victory**: When you reach the target, a celebration message will appear
+6. **New Game**: Click the "New Game" button to start a fresh puzzle
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🏗️ Project Structure
 
-## Learn More
+```
+src/
+├── components/
+│   ├── MathPyramid.js      # Main game component
+│   ├── MathPyramid.css     # Styling for the pyramid game
+│   └── index.js            # Component exports
+├── utils/
+│   └── mathHelpers.js      # Mathematical utility functions
+├── App.js                  # Main application component
+├── App.css                 # Application-level styles
+├── index.js                # Application entry point
+└── index.css               # Global styles and background textures
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🎨 Design Features
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Visual Elements
+- **Background**: Multi-layered stone/concrete texture with subtle animations
+- **Typography**: Bold golden text with glow effects and text shadows
+- **Blocks**: Triangular pyramid shapes with 3D hover effects
+- **Borders**: Animated golden borders with shimmer effects
+- **Color Scheme**: Dark grays and blacks with golden accents (#d4af37, #ffd700)
 
-### Code Splitting
+### Responsive Breakpoints
+- **Desktop**: Full-size layout with side-by-side pyramid and target
+- **Mobile (≤768px)**: Stacked layout with smaller blocks and adjusted typography
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🔧 Technical Implementation
 
-### Analyzing the Bundle Size
+### Technologies Used
+- **React**: Component-based UI framework
+- **CSS3**: Advanced styling with gradients, shadows, and animations
+- **Flexbox**: Responsive layout management
+- **CSS Clip-path**: Triangular pyramid block shapes
+- **CSS Animations**: Shimmer effects, glows, and transitions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Key Components
 
-### Making a Progressive Web App
+#### MathPyramid Component
+- Manages game state and logic
+- Generates random mathematical puzzles
+- Handles user interactions and win conditions
+- Renders the pyramid layout and target display
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Mathematical Operations
+- Addition (+)
+- Subtraction (-)
+- Multiplication (×)
+- Division (÷)
 
-### Advanced Configuration
+## 🎮 Game Mechanics
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Puzzle Generation
+- Random target values between 1-100
+- Balanced mix of mathematical operations
+- Strategic placement of numbers for optimal difficulty
 
-### Deployment
+### User Experience
+- Smooth hover animations and feedback
+- Clear visual hierarchy with golden highlights
+- Intuitive click-to-select interaction
+- Immediate feedback on current progress
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📱 Responsive Design
 
-### `npm run build` fails to minify
+The game automatically adapts to different screen sizes:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Desktop**: Horizontal layout with full-size elements
+- **Tablet**: Adjusted spacing and element sizes
+- **Mobile**: Vertical stack layout with optimized touch targets
+
+## 🚀 Deployment
+
+To build for production:
+
+```bash
+npm run build
+```
+
+The optimized build will be available in the `build/` directory.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+### Development Guidelines
+1. Follow existing code style and structure
+2. Test thoroughly on different screen sizes
+3. Maintain the prison theme aesthetic
+4. Ensure mathematical accuracy
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🎯 Future Enhancements
+
+- [ ] Multiple difficulty levels
+- [ ] Score tracking and leaderboards
+- [ ] Sound effects and music
+- [ ] Additional mathematical operations
+- [ ] Hint system for challenging puzzles
+- [ ] Achievement system
+- [ ] Multiplayer competitions
+
+## 👤 Author
+
+**theRubberDuckiee**
+- GitHub: [@theRubberDuckiee](https://github.com/theRubberDuckiee)
+
+## 🙏 Acknowledgments
+
+- Inspired by classic mathematical puzzle games
+- Prison aesthetic influenced by atmospheric game design
+- Built with modern React best practices
+
+---
+
+**Ready to escape through mathematics? Start playing now! 🔺✨**
+
