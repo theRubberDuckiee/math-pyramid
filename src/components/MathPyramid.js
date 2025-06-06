@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './MathPyramid.css';
-import { generatePyramid, validatePath } from '../utils/mathHelpers';
+import { generatePyramid } from '../utils/mathHelpers';
 
 const MathPyramid = () => {
   const [pyramid, setPyramid] = useState([]);
   const [target, setTarget] = useState(9);
   const [selectedPath, setSelectedPath] = useState([]);
-  const [gameWon, setGameWon] = useState(false);
   const [currentValue, setCurrentValue] = useState(0);
   const [allSolutions, setAllSolutions] = useState([]);
   const [foundSolutions, setFoundSolutions] = useState([]);
   const [duplicateMessage, setDuplicateMessage] = useState('');
   const [showHint, setShowHint] = useState(false);
+  const [showSolutions, setShowSolutions] = useState(false);
 
   useEffect(() => {
     initializeGame();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   useEffect(() => {
@@ -23,6 +24,7 @@ const MathPyramid = () => {
       setAllSolutions(solutions);
       console.log('🧠 All possible solutions calculated:', solutions);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pyramid, target]);
   
   useEffect(() => {
@@ -60,28 +62,38 @@ const MathPyramid = () => {
       
       console.log('🧮 Three blocks:', { num1, op1, num2, op2, num3 });
       
-      // Check if we need to handle multiplication/division first
-      if (op2 === '×' || op2 === '÷') {
-        // Calculate num2 op2 num3 first
-        const rightResult = op2 === '×' ? num2 * num3 : num2 / num3;
-        console.log('🧮 Right side calculation:', `${num2} ${op2} ${num3} = ${rightResult}`);
+      // Check operator precedence
+      const op1IsHighPrecedence = op1 === '×' || op1 === '÷';
+      const op2IsHighPrecedence = op2 === '×' || op2 === '÷';
+      
+      if (op1IsHighPrecedence && !op2IsHighPrecedence) {
+        // First operation has higher precedence: do num1 op1 num2 first
+        const leftResult = op1 === '×' ? num1 * num2 : num1 / num2;
+        console.log('🧮 Left side calculation (high precedence):', `${num1} ${op1} ${num2} = ${leftResult}`);
         
-        // Then apply the first operation
+        const finalResult = op2 === '+' ? leftResult + num3 :
+                           op2 === '-' ? leftResult - num3 : leftResult;
+        
+        console.log('🧮 Final calculation:', `${leftResult} ${op2} ${num3} = ${finalResult}`);
+        return finalResult;
+      } else if (!op1IsHighPrecedence && op2IsHighPrecedence) {
+        // Second operation has higher precedence: do num2 op2 num3 first
+        const rightResult = op2 === '×' ? num2 * num3 : num2 / num3;
+        console.log('🧮 Right side calculation (high precedence):', `${num2} ${op2} ${num3} = ${rightResult}`);
+        
         const finalResult = op1 === '+' ? num1 + rightResult :
-                           op1 === '-' ? num1 - rightResult :
-                           op1 === '×' ? num1 * rightResult :
-                           op1 === '÷' ? num1 / rightResult : num1;
+                           op1 === '-' ? num1 - rightResult : num1;
         
         console.log('🧮 Final calculation:', `${num1} ${op1} ${rightResult} = ${finalResult}`);
         return finalResult;
       } else {
-        // Left to right calculation
+        // Same precedence: calculate left to right
         const leftResult = op1 === '+' ? num1 + num2 :
                           op1 === '-' ? num1 - num2 :
                           op1 === '×' ? num1 * num2 :
                           op1 === '÷' ? num1 / num2 : num1;
         
-        console.log('🧮 Left side calculation:', `${num1} ${op1} ${num2} = ${leftResult}`);
+        console.log('🧮 Left side calculation (same precedence):', `${num1} ${op1} ${num2} = ${leftResult}`);
         
         const finalResult = op2 === '+' ? leftResult + num3 :
                            op2 === '-' ? leftResult - num3 :
@@ -192,15 +204,19 @@ const MathPyramid = () => {
     setPyramid(newPyramid);
     setTarget(newTarget);
     setSelectedPath([]);
-    setGameWon(false);
     setCurrentValue(0);
     setFoundSolutions([]);
     setDuplicateMessage('');
     setShowHint(false);
+    setShowSolutions(false);
   };
   
   const toggleHint = () => {
     setShowHint(!showHint);
+  };
+  
+  const toggleSolutions = () => {
+    setShowSolutions(!showSolutions);
   };
 
   const handleBlockClick = (rowIndex, colIndex, value) => {
@@ -246,8 +262,8 @@ const MathPyramid = () => {
           if (solutionAlreadyFound) {
             setDuplicateMessage("You've already chosen these three");
           } else {
-            const sortedLabels = newPath.map(b => b.label).sort();
-            setFoundSolutions([...foundSolutions, { ids: sortedIds, labels: sortedLabels }]);
+            const clickOrderLabels = newPath.map(b => b.label); // Keep original click order
+            setFoundSolutions([...foundSolutions, { ids: sortedIds, labels: clickOrderLabels }]);
           }
         }
         
@@ -260,37 +276,6 @@ const MathPyramid = () => {
     }
   };
 
-  const canAddToPath = (rowIndex, colIndex) => {
-    console.log('🔍 canAddToPath check:', {
-      targetBlock: `${rowIndex}-${colIndex}`,
-      selectedPathLength: selectedPath.length
-    });
-    
-    if (selectedPath.length === 0) {
-      const result = rowIndex === 0;
-      console.log('🔍 First move check:', { rowIndex, mustBeZero: true, result });
-      return result;
-    }
-    
-    const lastBlock = selectedPath[selectedPath.length - 1];
-    const lastRow = lastBlock.row;
-    const lastCol = lastBlock.col;
-    
-    console.log('🔍 Path continuation check:', {
-      lastBlock: lastBlock.id,
-      lastRow,
-      lastCol,
-      targetRow: rowIndex,
-      targetCol: colIndex,
-      isNextRow: rowIndex === lastRow + 1,
-      isAdjacentCol: colIndex === lastCol || colIndex === lastCol + 1
-    });
-    
-    // Can only move to adjacent blocks in the row below
-    const result = rowIndex === lastRow + 1 && (colIndex === lastCol || colIndex === lastCol + 1);
-    console.log('🔍 canAddToPath result:', result);
-    return result;
-  };
 
   const isBlockSelected = (rowIndex, colIndex) => {
     const result = selectedPath.some(p => p.id === `${rowIndex}-${colIndex}`);
@@ -405,6 +390,9 @@ const MathPyramid = () => {
             <button className="hint-btn" onClick={toggleHint}>
               {showHint ? 'Hide Hint' : 'Hint'}
             </button>
+            <button className="solutions-btn" onClick={toggleSolutions}>
+              {showSolutions ? 'Hide Solutions' : 'Show Solutions'}
+            </button>
             <button className="new-game-btn" onClick={initializeGame}>
               New Game
             </button>
@@ -413,6 +401,22 @@ const MathPyramid = () => {
           {showHint && (
             <div className="hint-display">
               💡 This board has {allSolutions.length} possible solution{allSolutions.length !== 1 ? 's' : ''}
+            </div>
+          )}
+          
+          {showSolutions && (
+            <div className="all-solutions-display">
+              <h3>All Possible Solutions:</h3>
+              {allSolutions.length > 0 ? (
+                allSolutions.map((solution, index) => (
+                  <div key={index} className="all-solution-item">
+                    <span className="solution-sequence">{solution.labels.join(', ')}</span>
+                    <span className="solution-equals"> = {Math.round(solution.result * 100) / 100}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="no-solutions">No solutions found for this board.</div>
+              )}
             </div>
           )}
         </div>

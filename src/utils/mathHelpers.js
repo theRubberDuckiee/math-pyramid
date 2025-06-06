@@ -41,25 +41,56 @@ export const validatePath = (path, target) => {
 };
 
 /**
- * Generates a new pyramid puzzle based on the reference image
+ * Generates a new pyramid puzzle with random numbers and operations
  * @param {number} levels - Number of levels in the pyramid (default 4)
  * @returns {Array} 2D array representing the pyramid
  */
 export const generatePyramid = (levels = 4) => {
-  // Create the exact pyramid from the reference image
-  const pyramid = [
-    // Row 0 (top)
-    [{ operation: '+', number: 1 }],
+  const operations = ['+', '-', '×', '÷'];
+  const pyramid = [];
+  const totalBlocks = (levels * (levels + 1)) / 2; // Total number of blocks in pyramid
+  
+  // First, create all blocks with random numbers
+  const allBlocks = [];
+  for (let i = 0; i < totalBlocks; i++) {
+    allBlocks.push({
+      operation: null, // Will be assigned later
+      number: getRandomNumber(1, 12)
+    });
+  }
+  
+  // Ensure at least one of each operation type
+  const requiredOperations = ['+', '-', '×', '÷'];
+  
+  // Assign required operations to first 4 blocks
+  for (let i = 0; i < requiredOperations.length; i++) {
+    allBlocks[i].operation = requiredOperations[i];
+  }
+  
+  // Fill remaining blocks with random operations
+  for (let i = 4; i < totalBlocks; i++) {
+    allBlocks[i].operation = operations[getRandomNumber(0, 3)];
+  }
+  
+  // Shuffle the blocks to randomize positions
+  for (let i = allBlocks.length - 1; i > 0; i--) {
+    const j = getRandomNumber(0, i);
+    [allBlocks[i], allBlocks[j]] = [allBlocks[j], allBlocks[i]];
+  }
+  
+  // Arrange blocks into pyramid structure
+  let blockIndex = 0;
+  for (let row = 0; row < levels; row++) {
+    const rowData = [];
+    const blocksInRow = row + 1;
     
-    // Row 1
-    [{ operation: '÷', number: 4 }, { operation: '×', number: 3 }],
+    for (let col = 0; col < blocksInRow; col++) {
+      rowData.push(allBlocks[blockIndex]);
+      blockIndex++;
+    }
     
-    // Row 2
-    [{ operation: '-', number: 10 }, { operation: '÷', number: 5 }, { operation: '×', number: 6 }],
-    
-    // Row 3 (bottom)
-    [{ operation: '-', number: 11 }, { operation: '+', number: 7 }, { operation: '÷', number: 9 }, { operation: '+', number: 9 }]
-  ];
+    pyramid.push(rowData);
+  }
   
   return pyramid;
 };

@@ -471,6 +471,24 @@
   background: linear-gradient(145deg, #5ba0f2, #4a90e2);
 }
 
+.solutions-btn {
+  background: linear-gradient(145deg, #e2904a, #bd7a35);
+  color: white;
+  border: 2px solid #8f5f2e;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(226, 144, 74, 0.3);
+}
+
+.solutions-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(226, 144, 74, 0.5);
+  background: linear-gradient(145deg, #f2a05b, #e2904a);
+}
+
 .hint-display {
   background: rgba(74, 144, 226, 0.15);
   color: #4a90e2;
@@ -483,13 +501,80 @@
   font-size: 1.1rem;
 }
 
+/* All solutions display styles */
+.all-solutions-display {
+  background: rgba(226, 144, 74, 0.15);
+  border: 1px solid rgba(226, 144, 74, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.all-solutions-display h3 {
+  color: #e2904a;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.all-solution-item {
+  background: rgba(226, 144, 74, 0.2);
+  color: #e2904a;
+  padding: 0.5rem 0.8rem;
+  margin: 0.3rem 0;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(226, 144, 74, 0.4);
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.all-solution-item:hover {
+  background: rgba(226, 144, 74, 0.3);
+  transform: translateX(2px);
+}
+
+.solution-sequence {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.solution-equals {
+  font-size: 0.9rem;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+.no-solutions {
+  text-align: center;
+  color: #ff6b6b;
+  font-style: italic;
+  padding: 1rem;
+}
+
 @media (max-width: 768px) {
   .button-container {
     flex-direction: column;
     gap: 0.5rem;
   }
   
-  .hint-btn, .new-game-btn {
+  .hint-btn, .solutions-btn, .new-game-btn {
     width: 100%;
+  }
+  
+  .all-solutions-display {
+    max-height: 200px;
+  }
+  
+  .all-solution-item {
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: center;
   }
 }
